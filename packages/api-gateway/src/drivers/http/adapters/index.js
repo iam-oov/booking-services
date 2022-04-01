@@ -11,5 +11,5 @@ module.exports = {
 	statusAdapters,
 	adminPanelAdapters,
 	authAdapters,
-  notificationsAdapters,
+	notificationsAdapters,
 }
