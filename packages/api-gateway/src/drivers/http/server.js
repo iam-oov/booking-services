@@ -10,6 +10,7 @@ const path = require('path');
 
 // Internal dependencies
 const { version } = require('../../../package.json');
+const configAuth = require('../../../config/auth0');
 
 async function start() {
 
@@ -56,8 +57,8 @@ async function start() {
 	fastify.register(Swagger, swaggerOptions);
 
 	fastify.register(FastifyAuth0, {
-		domain: 'STR_DOMAIN',
-		audience: 'STR_AUDENCE',
+		domain: configAuth.domain,
+		audience: configAuth.audience
 	});
 
 	fastify.register(Autoload, { dir: path.join(__dirname, 'plugins')});
