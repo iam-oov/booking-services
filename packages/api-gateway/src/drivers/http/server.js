@@ -4,6 +4,8 @@
 const Fastify = require('fastify');
 const Autoload = require('fastify-autoload');
 const Swagger = require('fastify-swagger');
+const FastifyAuth0 = require('fastify-auth0-verify');
+
 const path = require('path');
 
 // Internal dependencies
@@ -53,8 +55,13 @@ async function start() {
 	// Swagger needs to be loaded before the routes
 	fastify.register(Swagger, swaggerOptions);
 
-	fastify.register(Autoload, { dir: path.join(__dirname, 'routes')});
+	fastify.register(FastifyAuth0, {
+		domain: 'STR_DOMAIN',
+		audience: 'STR_AUDENCE',
+	});
+
 	fastify.register(Autoload, { dir: path.join(__dirname, 'plugins')});
+	fastify.register(Autoload, { dir: path.join(__dirname, 'routes')});
 
 	try {
 		await fastify.listen(process.env.SERVER_PORT || 3000, '0.0.0.0');
