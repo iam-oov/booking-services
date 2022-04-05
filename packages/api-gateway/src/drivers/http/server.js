@@ -1,6 +1,7 @@
-'use strict';
+"use strict";
 
 // External dependencies
+<<<<<<< HEAD
 const Fastify = require('fastify');
 const Autoload = require('fastify-autoload');
 const Swagger = require('fastify-swagger');
@@ -11,51 +12,59 @@ const path = require('path');
 // Internal dependencies
 const { version } = require('../../../package.json');
 const configAuth = require('../../../config/auth0');
+=======
+const Fastify = require("fastify");
+const Autoload = require("fastify-autoload");
+const Swagger = require("fastify-swagger");
+const path = require("path");
 
-async function start() {
+// Internal dependencies
+const { version } = require("../../../package.json");
+>>>>>>> master
 
-	const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: true });
 
-	/** @type {import('fastify-swagger').SwaggerOptions} */
-	const swaggerOptions = {
-		routePrefix: '/docs',
-		openapi: {
-			info: {
-				title: 'Booking API Gateway',
-				description: 'API Gateway for Booking Services',
-				version,
-			},
-			schemes: ['http', 'https'],
-			consumes: ['application/json'],
-			produces: ['application/json'],
-			tags: [
-				{ name: 'Math', description: 'Math endpoints' },
-				{ name: 'Status', description: 'Status endpoints' },
-				{ name: 'Search Engine', description: 'Search Engine endpoints' },
-				{ name: 'Geolocation', description: 'Geolocation endpoints' },
-				{ name: 'Booking', description: 'Booking endpoints' },
-				{ name: 'Core', description: 'Core endpoints' },
-				{ name: 'Users', description: 'User endpoints' },
-				{ name: 'Notifications', description: 'Notification endpoints' },
-				{ name: 'Messages', description: 'Messages endpoints' },
-				{ name: 'Places', description: 'Places endpoints' },
-				{ name: 'Admininistration panel', description: 'Admininistration panel endpoints' },
-			],
-			components: {
-				securitySchemes: {
-					Bearer: {
-						type: 'http',
-						scheme: 'bearer',
-					},
-				},
-			},
-		},
-		exposeRoute: true
-	};
+/** @type {import('fastify-swagger').SwaggerOptions} */
+const swaggerOptions = {
+  routePrefix: "/docs",
+  openapi: {
+    info: {
+      title: "Booking API Gateway",
+      description: "API Gateway for Booking Services",
+      version,
+    },
+    schemes: ["http", "https"],
+    consumes: ["application/json"],
+    produces: ["application/json"],
+    tags: [
+      { name: "Math", description: "Math endpoints" },
+      { name: "Status", description: "Status endpoints" },
+      { name: "Search Engine", description: "Search Engine endpoints" },
+      { name: "Geolocation", description: "Geolocation endpoints" },
+      { name: "Booking", description: "Booking endpoints" },
+      { name: "Core", description: "Core endpoints" },
+      { name: "Users", description: "User endpoints" },
+      { name: "Notifications", description: "Notification endpoints" },
+      { name: "Messages", description: "Messages endpoints" },
+      { name: "Places", description: "Places endpoints" },
+      {
+        name: "Admininistration panel",
+        description: "Admininistration panel endpoints",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        Bearer: {
+          type: "http",
+          scheme: "bearer",
+        },
+      },
+    },
+  },
+  exposeRoute: true,
+};
 
-	// Swagger needs to be loaded before the routes
-	fastify.register(Swagger, swaggerOptions);
-
+<<<<<<< HEAD
 	fastify.register(FastifyAuth0, {
 		domain: configAuth.domain,
 		audience: configAuth.audience
@@ -63,16 +72,26 @@ async function start() {
 
 	fastify.register(Autoload, { dir: path.join(__dirname, 'plugins')});
 	fastify.register(Autoload, { dir: path.join(__dirname, 'routes')});
+=======
+// Swagger needs to be loaded before the routes
+fastify.register(Swagger, swaggerOptions);
+>>>>>>> master
 
-	try {
-		await fastify.listen(process.env.SERVER_PORT || 3000, '0.0.0.0');
+fastify.register(Autoload, { dir: path.join(__dirname, "routes") });
+fastify.register(Autoload, { dir: path.join(__dirname, "plugins") });
 
-	} catch (error) {
-		fastify.log.error(`[http-server]: Error with message ${error.message} has happened`);
-		process.exit(1);
-	}
+async function start() {
+  try {
+    await fastify.listen(process.env.SERVER_PORT || 3000, "0.0.0.0");
+  } catch (error) {
+    fastify.log.error(
+      `[http-server]: Error with message ${error.message} has happened`
+    );
+    process.exit(1);
+  }
 }
 
 module.exports = {
-	start
-}
+  start,
+  fastify,
+};
