@@ -11,8 +11,9 @@ const hasPermissions = (endpointPermissions) => (req, reply, done) => {
   }
 
   return reply.code(403).send({
-    message: 'permission denied',
-    statusCode: 403,
+    error: 'Permission denied',
+    message: 'Permission denied.',
+    statusCode: 401,
   });
 };
 
@@ -26,7 +27,20 @@ const hasRole = (endpointRoles) => (req, reply, done) => {
   }
 
   return reply.code(401).send({
-    message: 'unauthorized',
+    error: 'Unauthorized',
+    message: 'Unauthorized.',
+    statusCode: 401,
+  });
+};
+
+const onlyTheCreator = () => (req, reply, done) => {
+  if (req.user.sub === req.params.userId) {
+    return done();
+  }
+
+  return reply.code(401).send({
+    error: 'Unauthorized',
+    message: 'Unauthorized.',
     statusCode: 401,
   });
 };
@@ -34,4 +48,5 @@ const hasRole = (endpointRoles) => (req, reply, done) => {
 module.exports = {
   hasPermissions,
   hasRole,
+  onlyTheCreator,
 };

@@ -1,10 +1,10 @@
 // External dependencies
 const Autoload = require('fastify-autoload');
+const CORS = require('@fastify/cors');
 const Fastify = require('fastify');
 const FastifyAuth0 = require('fastify-auth0-verify');
 const path = require('path');
 const Swagger = require('fastify-swagger');
-const CORS = require('@fastify/cors');
 
 // Internal dependencies
 const authDecorators = require('./decorators/auth');
@@ -38,6 +38,7 @@ fastify.register(FastifyAuth0, {
 // Decorators for authorization
 fastify.decorate('hasPermissions', authDecorators.hasPermissions);
 fastify.decorate('hasRole', authDecorators.hasRole);
+fastify.decorate('onlyTheCreator', authDecorators.onlyTheCreator);
 
 fastify.register(Autoload, { dir: path.join(__dirname, 'routes') });
 fastify.register(Autoload, { dir: path.join(__dirname, 'plugins') });
