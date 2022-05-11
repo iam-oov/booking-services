@@ -1,9 +1,9 @@
 // External dependencies
-const Fastify = require('fastify');
 const Autoload = require('fastify-autoload');
-const Swagger = require('fastify-swagger');
+const Fastify = require('fastify');
 const FastifyAuth0 = require('fastify-auth0-verify');
 const path = require('path');
+const Swagger = require('fastify-swagger');
 
 // Internal dependencies
 const authDecorators = require('./decorators/auth');

@@ -3,17 +3,29 @@ const { authEndpointsStatusSchema } = require('./schema');
 const { authAdapters } = require('../../../adapters');
 
 /** @type {import('fastify').FastifyPluginCallback} */
-function status(fastify, _, done) {
+function main(fastify, _, done) {
   // Register routes
   fastify.get('/', {
     schema: authEndpointsStatusSchema,
     handler: authAdapters.getPrivateScoped,
     preValidation: fastify.authenticate,
-    // eslint-disable-next-line no-undef
-    preHandler: [fastify.hasPermissions(['create:roles', 'delete:roles']), fastify.hasRole(['admin', 'tester'], ignore = true)],
+    preHandler: [
+      fastify.hasPermissions([
+        'place:create',
+        'another:a',
+        'another:b',
+        'create:roles',
+      ]),
+      fastify.hasRole([
+        'anfitrion',
+        'tester',
+        'another',
+        'host',
+      ]),
+    ],
   });
 
   done();
 }
 
-module.exports = status;
+module.exports = main;
