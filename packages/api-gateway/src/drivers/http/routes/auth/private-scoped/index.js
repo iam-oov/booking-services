@@ -11,17 +11,18 @@ function main(fastify, _, done) {
     preValidation: fastify.authenticate,
     preHandler: [
       fastify.hasPermissions([
+        'saludos:hola',
         'place:create',
         'another:a',
         'another:b',
         'create:roles',
       ]),
-      fastify.hasRole([
-        'anfitrion',
-        'tester',
-        'another',
-        'host',
-      ]),
+      // fastify.hasRole([
+      //   'anfitrion',
+      //   'tester',
+      //   'another',
+      //   'host',
+      // ]),
     ],
   });
 

@@ -4,6 +4,7 @@ const Fastify = require('fastify');
 const FastifyAuth0 = require('fastify-auth0-verify');
 const path = require('path');
 const Swagger = require('fastify-swagger');
+const CORS = require('@fastify/cors');
 
 // Internal dependencies
 const authDecorators = require('./decorators/auth');
@@ -19,7 +20,7 @@ const fastify = Fastify({
   logger: !isTestEnv,
 });
 
-fastify.register(require('@fastify/cors'), {
+fastify.register(CORS, {
   origin: configCORS.domain,
 });
 
