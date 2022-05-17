@@ -17,12 +17,12 @@ function main(fastify, _, done) {
         'another:b',
         'create:roles',
       ]),
-      // fastify.hasRole([
-      //   'anfitrion',
-      //   'tester',
-      //   'another',
-      //   'host',
-      // ]),
+      fastify.hasRole([
+        'anfitrion',
+        'tester',
+        'another',
+        'host',
+      ]),
     ],
   });
 

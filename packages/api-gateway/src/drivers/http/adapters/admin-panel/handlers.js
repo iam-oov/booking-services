@@ -1,7 +1,7 @@
 async function sayHello(req, reply) {
   const result = await this.adminPanelService.sayHello();
   return reply.code(200)
-    .header('Content-Type', 'application/json; chartset:utf-8')
+    .header('Content-Type', 'application/json; charset=utf-8')
     .send({ result });
 }
 
@@ -14,7 +14,7 @@ async function changeUserStatus(req, reply) {
       req.body.reason,
     );
     return reply.code(200)
-      .header('Content-Type', 'application/json; chartset:utf-8')
+      .header('Content-Type', 'application/json; charset=utf-8')
       .send({ result });
   } catch (e) {
     return reply.code(400).send({
@@ -27,10 +27,12 @@ async function getUsers(req, reply) {
   const result = await this.adminPanelService.getUsers(
     req.query.status,
     req.query.fullName,
+    req.query.userType,
+    req.query.validated,
   );
 
   return reply.code(200)
-    .header('Content-Type', 'application/json; chartset:utf-8')
+    .header('Content-Type', 'application/json; charset=utf-8')
     .send({ result });
 }
 
@@ -38,7 +40,7 @@ async function getUserDetail(req, reply) {
   try {
     const result = await this.adminPanelService.getUserDetail(req.params.user_id);
     return reply.code(200)
-      .header('Content-Type', 'application/json; chartset:utf-8')
+      .header('Content-Type', 'application/json; charset=utf-8')
       .send({ result });
   } catch (e) {
     return reply.code(404).send({
@@ -54,7 +56,7 @@ async function getAdminId(req, reply) {
       req.params.admin_id,
     );
     return reply.code(200)
-      .header('Content-Type', 'application/json; chartset:utf-8')
+      .header('Content-Type', 'application/json; charset=utf-8')
       .send({ result });
   } catch (e) {
     return reply.code(400).send({
@@ -69,7 +71,7 @@ async function getAdmins(req, reply) {
     req.query.full_name,
   );
   return reply.code(200)
-    .header('Content-Type', 'application/json; chartset:utf-8')
+    .header('Content-Type', 'application/json; charset=utf-8')
     .send({ result });
 }
 
@@ -81,7 +83,7 @@ async function listPlaces(req, reply) {
   );
 
   return reply.code(200)
-    .header('Content-Type', 'application/json; chartset:utf-8')
+    .header('Content-Type', 'application/json; charset=utf-8')
     .send({ result });
 }
 
@@ -98,7 +100,7 @@ async function editUserInfo(req, reply) {
       req.body.url_image,
     );
     return reply.code(200)
-      .header('Content-Type', 'application/json; chartset:utf-8')
+      .header('Content-Type', 'application/json; charset=utf-8')
       .send({ result });
   } catch (e) {
     return reply.code(400).send({
@@ -116,7 +118,7 @@ async function listBookings(req, reply) {
   );
 
   return reply.code(200)
-    .header('Content-Type', 'application/json; chartset:utf-8')
+    .header('Content-Type', 'application/json; charset=utf-8')
     .send({ result });
 }
 

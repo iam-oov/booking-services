@@ -19,10 +19,13 @@ const hasPermissions = (endpointPermissions) => (req, reply, done) => {
 
 const hasRole = (endpointRoles) => (req, reply, done) => {
   const userRoles = req.user?.permissions;
-  for (let i = 0; i < userRoles.length; i++) {
-    const userRole = userRoles[i];
-    if (endpointRoles.includes(userRole)) {
-      return done();
+
+  if (typeof userRoles !== 'undefined') {
+    for (let i = 0; i < userRoles.length; i++) {
+      const userRole = userRoles[i];
+      if (endpointRoles.includes(userRole)) {
+        return done();
+      }
     }
   }
 
