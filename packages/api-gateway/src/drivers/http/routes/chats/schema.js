@@ -34,6 +34,7 @@ const listChatRoomsSchema = {
     type: 'object',
     properties: {
       page: PAGE_PARAM_PROPS,
+      userId: { type: 'string' },
     },
     required: ['page'],
   },
@@ -42,7 +43,7 @@ const listChatRoomsSchema = {
       type: 'object',
       properties: {
         _id: { type: 'string' },
-        bookingId: { type: 'string' },
+        placeId: { type: 'string' },
         hostId: { type: 'string' },
         customerId: { type: 'string' },
         lastMessage: {
@@ -66,6 +67,7 @@ const listChatMessagesSchema = {
     type: 'object',
     properties: {
       page: PAGE_PARAM_PROPS,
+      userId: { type: 'string' },
     },
     required: ['page'],
   },
@@ -84,7 +86,80 @@ const listChatMessagesSchema = {
   },
 };
 
+/** @type {import('fastify').RouteOptions['schema']} */
+const openChatSchema = {
+  description: 'Open a chat room.',
+  tags: ['Messages'],
+  security: [{ Bearer: [] }],
+  body: {
+    type: 'object',
+    properties: {
+      hostId: { type: 'string' },
+      customerId: { type: 'string' },
+      placeId: { type: 'string' },
+    },
+    required: [
+      'hostId',
+      'customerId',
+      'placeId',
+    ],
+  },
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        _id: { type: 'string' },
+        placeId: { type: 'string' },
+        hostId: { type: 'string' },
+        customerId: { type: 'string' },
+        createdAt: { type: 'string' },
+        updatedAt: { type: 'string' },
+      },
+    },
+    201: {
+      type: 'object',
+      properties: {
+        _id: { type: 'string' },
+        placeId: { type: 'string' },
+        hostId: { type: 'string' },
+        customerId: { type: 'string' },
+        createdAt: { type: 'string' },
+        updatedAt: { type: 'string' },
+      },
+    },
+  },
+};
+
+const createMessageSchema = {
+  description: 'Create a message in a chat room.',
+  tags: ['Messages'],
+  security: [{ Bearer: [] }],
+  params: {
+    type: 'object',
+    properties: {
+      chatId: { type: 'string' },
+    },
+    required: ['chatId'],
+  },
+  body: {
+    type: 'object',
+    properties: {
+      text: { type: 'string' },
+      createdBy: { type: 'string' },
+    },
+    required: ['text', 'createdBy'],
+  },
+  response: {
+    201: {
+      type: 'object',
+      properties: MESSAGE_PROPS,
+    },
+  },
+};
+
 module.exports = {
   listChatRoomsSchema,
   listChatMessagesSchema,
+  openChatSchema,
+  createMessageSchema,
 };

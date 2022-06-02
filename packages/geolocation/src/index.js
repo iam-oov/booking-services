@@ -3,13 +3,30 @@
  */
 
 // Services
-const { getPlaces, updatePlace, deletePlace } = require('./useCases');
+const {
+  getPlaces,
+  updatePlace,
+  deletePlace,
+  getPlace,
+  geocoding,
+  reverseGeocoding,
+} = require('./useCases');
 
 // Domains
-const { geoNearQuery, updatePlaceQuery, deletePlaceQuery } = require('./domains');
+const {
+  geoNearQuery,
+  updatePlaceQuery,
+  deletePlaceQuery,
+  getPlaceQuery,
+  geocodingQuery,
+  reverseGeocodingQuery,
+} = require('./domains');
 
 module.exports = {
   getPlaces: getPlaces(geoNearQuery),
   deletePlace: deletePlace(deletePlaceQuery),
   updatePlace: updatePlace(updatePlaceQuery),
+  getPlace: getPlace(getPlaceQuery),
+  geocoding: geocoding(geocodingQuery),
+  reverseGeocoding: reverseGeocoding(reverseGeocodingQuery),
 };

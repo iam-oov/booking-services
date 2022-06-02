@@ -1,17 +1,21 @@
 // Internal dependencies
-const welcome = require('./utils/welcomPackage');
 const {
   makeListUserChatsService,
   makeGetChatRoomLastMessage,
   makeListChatMessages,
   makeIsChatRelatedToUser,
+  makeCreateChatRoom,
+  makeGetChatRoom,
+  makeCreateMessage,
 } = require('./use-cases');
-const { FakeChatModel, FakeMessageModel } = require('./utils/fixtures');
+const { ChatModel, MessageModel } = require('./domains/index');
 
 module.exports = {
-  messagesWelcome: welcome,
-  listUserChats: makeListUserChatsService(FakeChatModel),
-  getChatRoomLastMessage: makeGetChatRoomLastMessage(FakeMessageModel),
-  listChatMessages: makeListChatMessages(FakeMessageModel),
-  isChatRelatedToUser: makeIsChatRelatedToUser(FakeChatModel),
+  listUserChats: makeListUserChatsService(ChatModel),
+  getChatRoomLastMessage: makeGetChatRoomLastMessage(MessageModel),
+  listChatMessages: makeListChatMessages(MessageModel),
+  isChatRelatedToUser: makeIsChatRelatedToUser(ChatModel),
+  createChatRoom: makeCreateChatRoom(ChatModel),
+  getChatRoom: makeGetChatRoom(ChatModel),
+  createMessage: makeCreateMessage(MessageModel),
 };
